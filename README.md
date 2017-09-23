@@ -2,7 +2,7 @@
 
 [kakoune](http://kakoune.org) plugin to copy the current selection up and downwards to all lines matching the current selection.
 
-See this [asciinema](https://asciinema.org/a/138331) for a quick demo.
+[![demo](https://asciinema.org/a/138331.png)](https://asciinema.org/a/138331)
 
 ## Setup
 
