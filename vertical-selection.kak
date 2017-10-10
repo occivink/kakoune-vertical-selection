@@ -5,7 +5,7 @@ define-command select-up %{
         # throw if we're at the top of the buffer
         exec -draft "hZk<a-z>a<a-space>"
         exec "<space><a-:><a-;>"
-        select-impl "<a-?>" "$"
+        select-impl "<a-?>" "\n"
         exec "<a-:>"
     }
 }
