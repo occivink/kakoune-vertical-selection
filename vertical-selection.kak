@@ -26,7 +26,8 @@ define-command select-vertically %{
             exec -save-regs '' Z
         }
         select-down
-        exec <a-z>a<esc>
+        exec <a-z>a
+        echo
     }
 }
 
