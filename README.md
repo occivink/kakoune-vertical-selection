@@ -21,6 +21,17 @@ map global user <a-v> :select-up<ret>
 map global user V :select-vertically<ret>
 ```
 
+## Trivia
+
+This was suggested as a primitive by @rouanth on 2017-01-19
+([#1115](https://github.com/mawww/kakoune/issues/1115))
+and was followed by an implementation by patching the kakoune source code
+([#1116](https://github.com/mawww/kakoune/pull/1116)).
+The suggested keybinding in the patch was `^`.
+
+* [#1115](https://github.com/mawww/kakoune/issues/1115): Binding to copy selections vertically to equal substrings
+* [#1116](https://github.com/mawww/kakoune/pull/1116): Keybinding for copying selections on matching substrings vertically
+
 ## License
 
 Unlicense
