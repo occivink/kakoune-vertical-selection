@@ -23,7 +23,7 @@ map global user V :select-vertically<ret>
 
 ## Trivia
 
-This was suggested as a primitive by @rouanth on 2017-01-19
+This was suggested as a primitive by @rouanth on 2017-01-09
 ([#1115](https://github.com/mawww/kakoune/issues/1115))
 and was followed by an implementation by patching the kakoune source code
 ([#1116](https://github.com/mawww/kakoune/pull/1116)).
