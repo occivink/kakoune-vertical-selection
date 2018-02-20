@@ -3,7 +3,7 @@
 define-command select-up %{
     try %{
         # throw if we're at the top of the buffer
-        exec -draft "hZk<a-z>a<a-space>"
+        exec -draft "gh<a-C><a-space>"
         exec "<space><a-:><a-;>"
         select-impl "<a-?>" "\n"
         exec "<a-:>"
@@ -13,7 +13,7 @@ define-command select-up %{
 define-command select-down %{
     try %{
         # throw if we're at the bottom of the buffer
-        exec -draft "hZj<a-z>a<a-space>"
+        exec -draft "ghC<a-space>"
         exec "<space><a-:>"
         select-impl "?" "^"
     }
