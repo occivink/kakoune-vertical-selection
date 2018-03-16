@@ -1,6 +1,8 @@
 # copy the current selection upwards/downwards to all lines matching the current selection
 
-define-command select-up %{
+define-command select-up -docstring "
+Select matching patterns from the lines above
+" %{
     try %{
         # throw if we're at the top of the buffer
         exec -draft "gh<a-C><a-space>"
@@ -10,7 +12,9 @@ define-command select-up %{
     }
 }
 
-define-command select-down %{
+define-command select-down -docstring "
+Select matching patterns from the lines below
+" %{
     try %{
         # throw if we're at the bottom of the buffer
         exec -draft "ghC<a-space>"
@@ -19,7 +23,9 @@ define-command select-down %{
     }
 }
 
-define-command select-vertically %{
+define-command select-vertically -docstring "
+Select matching patterns from the lines above and below
+" %{
     eval %{
         eval -save-regs '' -draft %{
             select-up
@@ -27,6 +33,7 @@ define-command select-vertically %{
         }
         select-down
         exec <a-z>a
+        # silence the register message, it's an implementation detail
         echo
     }
 }
