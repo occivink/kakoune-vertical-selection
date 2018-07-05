@@ -40,9 +40,9 @@ Select matching patterns from the lines above and below
 
 define-command -hidden select-impl -params 2 %{
     eval -save-regs 'p/"' %{
-        exec \"p<a-*>
+        exec '"p<a-*>'
         # put the initial pattern in a capture group so we can come back to it
-        set-register p "(%reg{p})"
+        reg p "(%reg{p})"
         try %{
             exec "<a-K>^<ret>"
             # pattern is not at the beginning of the line
@@ -50,14 +50,14 @@ define-command -hidden select-impl -params 2 %{
                 # select every character on the same line before the pattern
                 exec "<a-:><a-;>;hGhs.<ret>"
                 # and require as many [^\n] to precede the pattern we're searching for
-                set-register p "[^\n]{%reg{#}}%reg{p}"
+                reg p "[^\n]{%reg{#}}%reg{p}"
             }
         }
-        set-register p "^%reg{p}"
+        reg p "^%reg{p}"
         # extend / reverse extend the selection to get all lines that match the pattern at the same position
-        set-register / "((%reg{p}[^\n]*\n)+|%arg{2})"
+        reg / "((%reg{p}[^\n]*\n)+|%arg{2})"
         exec "%arg{1}<ret><a-x>"
         # and select the pattern back from this selection
-        exec <a-s>\"p1s<ret>
+        exec '<a-s>"p1s<ret>'
     }
 }
