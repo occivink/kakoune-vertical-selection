@@ -19,7 +19,7 @@ Select matching patterns from the lines below
         # throw if we're at the bottom of the buffer
         exec -draft "ghC<a-space>"
         exec "<space><a-:>"
-        select-impl "?" "^"
+        select-impl "?" "^."
     }
 }
 
@@ -39,25 +39,32 @@ Select matching patterns from the lines above and below
 }
 
 define-command -hidden select-impl -params 2 %{
-    eval -save-regs 'p/"' %{
+    eval -save-regs 'sp/"' %{
+        # %reg{p} contains the regex to select all lines that potentially match the current
+        # %reg{s} contains the regex to subselect the current pattern from that selection
         exec '"p<a-*>'
-        # put the initial pattern in a capture group so we can come back to it
-        reg p "(%reg{p})"
         try %{
             exec "<a-K>^<ret>"
             # pattern is not at the beginning of the line
             eval -draft %{
                 # select every character on the same line before the pattern
                 exec "<a-:><a-;>;hGhs.<ret>"
-                # and require as many [^\n] to precede the pattern we're searching for
-                reg p "[^\n]{%reg{#}}%reg{p}"
+                # and require N chars to precede the pattern we're searching for
+                # or lines that have fewer than N chars
+                reg s "^.{%reg{#}}(%reg{p})"
+                reg p "(?:^(?:.{%reg{#}}%reg{p}.*|.{,%reg{#}})\n)+"
             }
+        } catch %{
+            reg s "^(%reg{p})"
+            # empty lines are accepted too
+            reg p "^(?:%reg{p}[^\n]*\n|\n)+"
         }
-        reg p "^%reg{p}"
-        # extend / reverse extend the selection to get all lines that match the pattern at the same position
-        reg / "((%reg{p}[^\n]*\n)+|%arg{2})"
+        # extend (resp. reverse extend) to all lines that match the pattern (or are short enough)
+        # or stop if the next (resp. previous) line is not a candidate
+        reg / "(?S)(?:%reg{p}|%arg{2})"
         exec "%arg{1}<ret><a-x>"
         # and select the pattern back from this selection
-        exec '<a-s>"p1s<ret>'
+        reg / "(?S)%reg{s}"
+        exec '<a-s>1s<ret>'
     }
 }
