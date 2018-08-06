@@ -16,9 +16,9 @@ Calling any of the commands with a multi-line selection is undefined behavior.
 
 I suggest the following mappings:
 ```
-map global user v :select-down<ret>
-map global user <a-v> :select-up<ret>
-map global user V :select-vertically<ret>
+map global user v     ': select-down<ret>'
+map global user <a-v> ': select-up<ret>'
+map global user V     ': select-vertically<ret>'
 ```
 
 ## Trivia
