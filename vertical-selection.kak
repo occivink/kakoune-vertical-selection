@@ -48,11 +48,11 @@ define-command -hidden select-impl -params 2 %{
             # pattern is not at the beginning of the line
             eval -draft %{
                 # select every character on the same line before the pattern
-                exec "<a-:><a-;>;hGhs.<ret>"
+                exec "<a-:><a-;>;hGh<ret>"
                 # and require N chars to precede the pattern we're searching for
                 # or lines that have fewer than N chars
-                reg s "^.{%reg{#}}(%reg{p})"
-                reg p "(?:^(?:.{%reg{#}}%reg{p}.*|.{,%reg{#}})\n)+"
+                reg s "^.{%val{selection_length}}(%reg{p})"
+                reg p "(?:^(?:.{%val{selection_length}}%reg{p}.*|.{,%reg{#}})\n)+"
             }
         } catch %{
             reg s "^(%reg{p})"
