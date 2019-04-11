@@ -1,5 +1,12 @@
 # kakoune-vertical-selections
 
+**Warning**: for namespacing reasons, the command names recently changed as follow:
+```
+select-down       -> vertical-selection-down
+select-up         -> vertical-selection-up
+select-vertically -> vertical-selection-up-and-down
+```
+
 [kakoune](http://kakoune.org) plugin to copy the current selection up and downwards to all lines matching the current selection.
 
 [![demo](https://asciinema.org/a/138331.png)](https://asciinema.org/a/138331)
@@ -16,10 +23,12 @@ Calling any of the commands with a multi-line selection is undefined behavior.
 
 I suggest the following mappings:
 ```
-map global user v     ': select-down<ret>'
-map global user <a-v> ': select-up<ret>'
-map global user V     ': select-vertically<ret>'
+map global user v     ': vertical-selection-down<ret>'
+map global user <a-v> ': vertical-selection-up<ret>'
+map global user V     ': vertical-selection-up-and-down<ret>'
 ```
+
+See also [kakoune-text-objects](https://github.com/Delapouite/kakoune-text-objects), for integrating this plugin into your text objects.
 
 ## Trivia
 
