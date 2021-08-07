@@ -1,44 +1,44 @@
 # copy the current selection upwards/downwards to all lines matching the current selection
 
-define-command select-up -docstring "
-Select matching patterns from the lines above
+define-command vertical-selection-up -docstring "
+Select matching pattern from the lines above
 " %{
     try %{
         # throw if we're at the top of the buffer
         exec -draft "gh<a-C><a-space>"
         exec "<space><a-:><a-;>"
-        select-impl "<a-?>" "\n"
+        vertical-selection-impl "<a-?>" "\n"
         exec "<a-:>"
     }
 }
 
-define-command select-down -docstring "
-Select matching patterns from the lines below
+define-command vertical-selection-down -docstring "
+Select matching pattern from the lines below
 " %{
     try %{
         # throw if we're at the bottom of the buffer
         exec -draft "ghC<a-space>"
         exec "<space><a-:>"
-        select-impl "?" "^."
+        vertical-selection-impl "?" "^."
     }
 }
 
-define-command select-vertically -docstring "
-Select matching patterns from the lines above and below
+define-command vertical-selection-up-and-down -docstring "
+Select matching pattern from the lines above and below
 " %{
     eval %{
         eval -save-regs '' -draft %{
-            select-up
+            vertical-selection-up
             exec -save-regs '' Z
         }
-        select-down
+        vertical-selection-down
         exec <a-z>a
         # silence the register message, it's an implementation detail
         echo
     }
 }
 
-define-command -hidden select-impl -params 2 %{
+define-command -hidden vertical-selection-impl -params 2 %{
     eval -save-regs 'sp/"' %{
         # %reg{p} contains the regex to select all lines that potentially match the current
         # %reg{s} contains the regex to subselect the current pattern from that selection
