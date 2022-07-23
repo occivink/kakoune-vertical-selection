@@ -6,7 +6,7 @@ Select matching pattern from the lines above
     try %{
         # throw if we're at the top of the buffer
         exec -draft "gh<a-C><a-space>"
-        exec "<space><a-:><a-;>"
+        exec "<space><esc>,<esc><a-:><a-;>"
         vertical-selection-impl "<a-?>" "\n"
         exec "<a-:>"
     }
@@ -17,8 +17,8 @@ Select matching pattern from the lines below
 " %{
     try %{
         # throw if we're at the bottom of the buffer
-        exec -draft "ghC<a-space>"
-        exec "<space><a-:>"
+        exec -draft "ghC<a-space><a-,>"
+        exec "<space><esc>,<esc><a-:>"
         vertical-selection-impl "?" "^."
     }
 }
@@ -62,7 +62,7 @@ define-command -hidden vertical-selection-impl -params 2 %{
         # extend (resp. reverse extend) to all lines that match the pattern (or are short enough)
         # or stop if the next (resp. previous) line is not a candidate
         reg / "(?S)(?:%reg{p}|%arg{2})"
-        exec "%arg{1}<ret><a-x>"
+        exec "%arg{1}<ret>"
         # and select the pattern back from this selection
         reg / "(?S)%reg{s}"
         exec '<a-s>1s<ret>'
