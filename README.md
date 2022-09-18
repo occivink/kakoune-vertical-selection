@@ -1,11 +1,6 @@
-# kakoune-vertical-selections
+# kakoune-vertical-selection
 
-**Warning**: for namespacing reasons, the command names recently changed as follow:
-```
-select-down       -> vertical-selection-down
-select-up         -> vertical-selection-up
-select-vertically -> vertical-selection-up-and-down
-```
+**Warning**: For kakoune version 2021.11.08 and earlier, the master branch of this plugin will not work. The latest commit compatible with these versions is 6f46f8b510f1bf09904c00165ec25572567af0d6.
 
 [kakoune](http://kakoune.org) plugin to copy the current selection up and downwards to all lines matching the current selection.
 
