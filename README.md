@@ -25,6 +25,10 @@ map global user V     ': vertical-selection-up-and-down<ret>'
 
 See also [kakoune-text-objects](https://github.com/Delapouite/kakoune-text-objects), for integrating this plugin into your text objects.
 
+## Tests
+
+The `test.kak` file contains tests for the plugin. To execute these tests, simply run `kak -n -e 'source test.kak ; exit'`: if the kakoune instance stays open, the tests have somehow failed and the current state can be inspected.
+
 ## Trivia
 
 This was suggested as a primitive by @rouanth on 2017-01-09
@@ -35,6 +39,7 @@ The suggested keybinding in the patch was `^`.
 
 * [#1115](https://github.com/mawww/kakoune/issues/1115): Binding to copy selections vertically to equal substrings
 * [#1116](https://github.com/mawww/kakoune/pull/1116): Keybinding for copying selections on matching substrings vertically
+
 
 ## License
 
