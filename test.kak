@@ -15,6 +15,11 @@ define-command assert-selections-are -params 1 %{
 
 edit -scratch *vertical-selection-test-1*
 
+# content is
+# line1
+# line2
+# line3
+# line4
 exec 'iline1<ret>line2<ret>line3<ret>line4<esc>'
 
 exec 'ggl' # select first 'i'
@@ -51,6 +56,29 @@ exec 'ggLLL' # select entire 'line'
 vertical-selection-down
 assert-selections-are "'line' 'line' 'line' 'line'"
 
-# TODO tests with multi-selection as input
+delete-buffer
+
+edit -scratch *vertical-selection-test-2*
+
+# content is:
+# [a] b [c] d
+#  b [b] c  e
+#  a  b  c [e]
+#  b  b  d  e
+exec 'iabcd<ret>bbce<ret>abce<ret>bbde<esc>'
+select 1.1,1.1 1.3,1.3 2.2,2.2 3.4,3.4
+exec -save-regs '' 'Z'
+
+exec 'z'
+vertical-selection-down
+assert-selections-are "'a' 'c' 'b' 'c' 'b' 'c' 'e' 'b' 'e'"
+
+exec 'z'
+vertical-selection-up
+assert-selections-are "'a' 'b' 'c' 'b' 'e' 'e'"
+
+exec 'z'
+vertical-selection-up-and-down
+assert-selections-are "'a' 'b' 'c' 'b' 'c' 'e' 'b' 'c' 'e' 'b' 'e'"
 
 delete-buffer
