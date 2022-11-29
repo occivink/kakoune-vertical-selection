@@ -27,7 +27,7 @@ Select matching pattern from the lines below
 define-command vertical-selection-up-and-down -docstring "
 Select matching pattern from the lines above and below
 " %{
-    eval %{
+    eval -save-regs '^' %{
         eval -save-regs '' -draft %{
             vertical-selection-up
             exec -save-regs '' Z
