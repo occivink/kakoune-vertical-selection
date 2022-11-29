@@ -1,27 +1,34 @@
 provide-module vertical-selection %{
+
 # copy the current selection upwards/downwards to all lines matching the current selection
 
 define-command vertical-selection-up -docstring "
 Select matching pattern from the lines above
 " %{
-    try %{
-        # throw if we're at the top of the buffer
-        exec -draft "gh<a-C><a-,>"
-        exec ",<a-:><a-;>"
-        vertical-selection-impl "<a-?>" "\n"
-        exec "<a-:>"
+    eval -itersel %{
+        try %{
+            # throw if we're at the top of the buffer
+            exec -draft "gh<a-C><a-,>"
+            exec "<a-:><a-;>"
+            vertical-selection-impl "<a-?>" "\n"
+            exec "<a-:>"
+        }
     }
+    exec 'Zz' # needed in order not to stack up overlapping selections
 }
 
 define-command vertical-selection-down -docstring "
 Select matching pattern from the lines below
 " %{
-    try %{
-        # throw if we're at the bottom of the buffer
-        exec -draft "ghC<a-,>"
-        exec ",<a-:>"
-        vertical-selection-impl "?" "^."
+    eval -itersel %{
+        try %{
+            # throw if we're at the bottom of the buffer
+            exec -draft "ghC<a-,>"
+            exec "<a-:>"
+            vertical-selection-impl "?" "^."
+        }
     }
+    exec 'Zz'
 }
 
 define-command vertical-selection-up-and-down -docstring "
